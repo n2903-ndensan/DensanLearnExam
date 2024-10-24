@@ -1,18 +1,15 @@
-﻿@page "/counter"
+@page "/counter"
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<p role="status" class="@GetColor()">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-}
+<button class="btn btn-primary" @onclick="IncrementCount">Increment</button>
+<button class="btn btn-primary" @onclick="DecrementCount">Decrement</button>
+<p />
+<RadzenLabel class="@GetRadzenColor()" Text="@DispRadzenCounter()"  />
+<p />
+<RadzenButton class="btn btn-outline-warning" Click="@IncrementRadzenCount" >Radzen Increment</RadzenButton>
+<RadzenButton class="btn btn-outline-info" Click="@DecrementRadzenCount" >Radzen Decrement</RadzenButton>
