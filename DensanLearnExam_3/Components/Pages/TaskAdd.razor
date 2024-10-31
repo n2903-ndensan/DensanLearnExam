@@ -1,0 +1,42 @@
+@page "/add-task"
+@inject IStateBox<List<TaskListEntity>> sessionState
+@inject NavigationManager Navigation
+
+<h3>タスク登録</h3>
+
+<RadzenTemplateForm TItem="TaskListEntity" Data=@newTask Submit="onSubmit">
+    <RadzenStack>
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenLabel Text="題名：" Style="width: 50px" />
+                <RadzenTextBox MaxLength="30" Style="width: 60%" Name="Title" @bind-Value="newTask.Title"></RadzenTextBox>
+                <RadzenRequiredValidator Component="Title" Text="題名は必須です。"></RadzenRequiredValidator>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenLabel Text="日付：" Style="width: 50px" />
+                <RadzenDatePicker TValue="DateTime" Name="DeadLine" PrevMonthAriaLabel="前月" 
+                NextMonthAriaLabel="次月" OkAriaLabel="確定" ShowTime="false" DateFormat="yyyy/MM/dd"  @bind-Value="newTask.DeadLine"></RadzenDatePicker>
+                <RadzenRequiredValidator Component="DeadLine" Text="日付は必須です。"></RadzenRequiredValidator>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenLabel Text="状態：" Style="width: 50px" />
+                <RadzenDropDown Name="Status" TValue="DensanTaskStatus" Data="@taskStatus" TextProperty="Text" ValueProperty="Value"  @bind-Value="newTask.Status"></RadzenDropDown>
+                <RadzenRequiredValidator Component="Status" Text="状態は必須です。"></RadzenRequiredValidator>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenLabel Text="内容：" Style="width: 50px" />
+                <RadzenTextArea Style="width: 60%" Rows="5"  @bind-Value="newTask.Description" Placeholder="タスクの内容を入力"></RadzenTextArea>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End">
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="登録" Variant="Variant.Flat"/>
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Reset" Icon="cancel" Text="キャンセル" Variant="Variant.Flat" Click="Cancel" />
+        </RadzenStack>
+    </RadzenStack>
+</RadzenTemplateForm>

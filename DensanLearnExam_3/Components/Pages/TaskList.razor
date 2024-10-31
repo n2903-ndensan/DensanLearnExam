@@ -1,0 +1,28 @@
+@page "/task"
+@inject IStateBox<List<TaskListEntity>> sessionState
+@inject NavigationManager Navigation
+
+<h3>task list</h3>
+
+<div>
+    <RadzenButton class="btn btn-primary" style="border-radius: 10px" Click="NavigateToAddTask">タスク追加</RadzenButton>
+</div>
+
+<div>
+    <RadzenDataGrid TItem="TaskListEntity" Data="list" LoadData="LoadTaskList">
+        <Columns>
+            <Radzen.Blazor.RadzenDataGridColumn Title="題名">
+                <Template>@context.Title</Template>
+            </Radzen.Blazor.RadzenDataGridColumn>
+            <Radzen.Blazor.RadzenDataGridColumn Title="期限">
+                <Template>@DateOnly.FromDateTime(context.DeadLine)</Template>
+            </Radzen.Blazor.RadzenDataGridColumn>
+            <Radzen.Blazor.RadzenDataGridColumn Title="状態">
+                <Template>@context.Status</Template>
+            </Radzen.Blazor.RadzenDataGridColumn>
+            <Radzen.Blazor.RadzenDataGridColumn Title="内容">
+                <Template>@context.getFirstLine()</Template>
+            </Radzen.Blazor.RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+</div>
